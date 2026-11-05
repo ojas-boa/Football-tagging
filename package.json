@@ -1,17 +1,18 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "football-tagger",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "desktop": "vite build && electron .",
+    "dist:win": "vite build && electron-builder --win nsis portable --publish never"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -22,6 +23,8 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
@@ -31,5 +34,40 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"
+  },
+  "productName": "Football Tagger",
+  "description": "Football match video tagging with Wyscout-style match reports",
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.ojas.footballtagger",
+    "productName": "Football Tagger",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "build/icon.png",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Football Tagger",
+      "artifactName": "Football-Tagger-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Football-Tagger-Portable-${version}.${ext}"
+    }
   }
 }

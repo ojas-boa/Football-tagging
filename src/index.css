@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+  html,
+  body,
+  #root,
+  #root > div {
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+  .report {
+    overflow: visible !important;
+    background: white !important;
+  }
+  .report-section {
+    break-inside: avoid;
+    border: none !important;
+  }
+  .report-team-title {
+    break-before: page;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
